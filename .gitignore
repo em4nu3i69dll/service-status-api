@@ -1,0 +1,14 @@
+node_modules/
+local/
+*.exe
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+*.key
+*.crt
+*.pem
+*.csr
+*.srl
+*.log

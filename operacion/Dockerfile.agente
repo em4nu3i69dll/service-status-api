@@ -1,0 +1,9 @@
+FROM golang:1.26-alpine@sha256:a2012b4a1d1f9f7e9f44e0d39b805a901e856b1dd80b4e6ee4338db547050308 AS compilacion
+WORKDIR /src
+COPY agente/ ./
+RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /agente .
+FROM alpine:3.23@sha256:ff7f0c727dd796aa36787bfcd9a64bf35a6ce72a73451b3359fde849b6703d63
+RUN apk add --no-cache ca-certificates
+COPY --from=compilacion /agente /usr/local/bin/agente
+USER 1000:1000
+ENTRYPOINT ["agente"]
